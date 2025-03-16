@@ -1,0 +1,29 @@
+name: Deploy
+on: push
+jobs:
+  test:
+    runs-on: Ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test
+        run: npm test
+
+  lint:
+    runs-on: Ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: lint
+        run: npm run lint
+
+  deploy:
+    runs-on: Ubuntu-latest
+    needs:
+      - lint
+      - test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: lint
+        run: npm run build
